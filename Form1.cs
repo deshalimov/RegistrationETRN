@@ -83,7 +83,7 @@ namespace RegistrationETRN
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "c:\\";
-                openFileDialog.Filter = "Excel файлы (*.cer)|*.cer";
+                openFileDialog.Filter = "Файлы сертификатов (*.cer)|*.cer";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
@@ -246,9 +246,11 @@ namespace RegistrationETRN
                     try
                     {
                         // Получение токена пользователя
-                        string resAuth = response.Content.ReadAsStringAsync().Result;
-                        JsonElement resp = JsonDocument.Parse(resAuth).RootElement;
-                        access_token = resp.GetProperty("access_token").ToString();
+                        string resAuth = await response.Content.ReadAsStringAsync();
+                        using( JsonDocument doc = JsonDocument.Parse(resAuth))
+                        {
+                            access_token = doc.RootElement.GetProperty("access_token").GetString();
+                        }
                     }
                     catch (Exception ex)
                     {
