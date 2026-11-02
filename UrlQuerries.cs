@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -17,9 +18,32 @@ namespace RegistrationETRN
     {
         private readonly Form1 _mainForm;
 
-        private static readonly string prod = "smartseeds.ru";
+        private static readonly string xapikey;
+        private static readonly string prod;
+        private static readonly string enviroment;
 
-        private static readonly string enviroment = prod;
+        static UrlQuerries()
+        {
+            string configPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "secrets.json"
+            );
+
+            using (JsonDocument doc =
+                JsonDocument.Parse(File.ReadAllText(configPath)))
+            {
+                xapikey = doc.RootElement
+                    .GetProperty("XApiKey")
+                    .GetString();
+
+                prod = doc.RootElement
+                    .GetProperty("Prod")
+                    .GetString();
+            }
+
+            // Выбираем окружение для всего класса
+            enviroment = prod;
+        }
 
         private readonly HelpElements helpElements;
 
@@ -178,7 +202,7 @@ namespace RegistrationETRN
             try
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, $"http://10.240.36.15:8000/files/{fileName}");
-                request.Headers.Add("X-API-Key", "");
+                request.Headers.Add("X-API-Key", xapikey);
                 response = await _client.SendAsync(request);
                 return response;
             }

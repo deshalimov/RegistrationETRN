@@ -12,12 +12,44 @@ namespace RegistrationETRN
         private readonly UrlQuerries urlQueries;
         private readonly HelpElements helpElements;
 
-        private readonly string loginadmin = "";
-        private readonly string PasswordAdmin = "";
+        private readonly string loginadmin;
+        private readonly string PasswordAdmin;
 
         public Form1()
         {
             InitializeComponent();
+
+            string configPath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "secrets.json"
+                );
+
+            if (!File.Exists(configPath))
+            {
+                MessageBox.Show(
+                    "Не найден файл secrets.json!\nПроверьте настройки приложения.",
+                    "Ошибка конфигурации",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                Application.Exit();
+                return;
+            }
+
+            string json = File.ReadAllText(configPath);
+
+            using (JsonDocument doc = JsonDocument.Parse(json))
+            {
+                loginadmin = doc.RootElement
+                    .GetProperty("LoginAdmin")
+                    .GetString();
+
+                PasswordAdmin = doc.RootElement
+                    .GetProperty("PasswordAdmin")
+                    .GetString();
+            }
+
             urlQueries = new UrlQuerries(this);
             helpElements = new HelpElements(this);
             AbonentMCHDDate.Value = DateTime.Now;
