@@ -174,16 +174,16 @@ namespace RegistrationETRN
                 // Добавление ФНС сигнатуры
                 if (SignatureRelations.SelectedTab.Name == "fns")
                 {
-                    // Если id сертификата не заполнен - отправить запрос на добавление его в БД
+                    // Если id сигнатуры ФНС не заполнен - отправить запрос на добавление его в БД
                     if (string.IsNullOrEmpty(fnsId.Text))
                     {
-                        // отправка запроса на создание файла с сертификатом
+                        // отправка запроса на создание файла с сигнатурой ФНС
                         HttpResponseMessage respFNS = await urlQueries.FnsSignature(access_token);
                         if (respFNS.IsSuccessStatusCode)
                         {
                             try
                             {
-                                // Получение id созданного сертификата
+                                // Получение id созданной сигнатуры ФНС
                                 string resFns = respFNS.Content.ReadAsStringAsync().Result;
                                 JsonElement idFns = JsonDocument.Parse(resFns).RootElement;
                                 fnsId.Text = idFns.GetProperty("id").ToString();
@@ -200,16 +200,16 @@ namespace RegistrationETRN
                 // Добавление госключ сигнатуры
                 if (SignatureRelations.SelectedTab.Name == "goskey")
                 {
-                    // Если id сертификата не заполнен - отправить запрос на добавление его в БД
-                    if (string.IsNullOrEmpty(fnsId.Text))
+                    // Если id сигнатуры госключа не заполнен - отправить запрос на добавление его в БД
+                    if (string.IsNullOrEmpty(goskeyId.Text))
                     {
-                        // отправка запроса на создание файла с сертификатом
+                        // отправка запроса на создание сигнатуры ФНС
                         HttpResponseMessage respGoskey = await urlQueries.GoskeySignature(access_token);
                         if (respGoskey.IsSuccessStatusCode)
                         {
                             try
                             {
-                                // Получение id созданного сертификата
+                                // Получение id сигнатуры ФНС
                                 string resGoskey = respGoskey.Content.ReadAsStringAsync().Result;
                                 JsonElement idGoskey = JsonDocument.Parse(resGoskey).RootElement;
                                 goskeyId.Text = idGoskey.GetProperty("id").ToString();

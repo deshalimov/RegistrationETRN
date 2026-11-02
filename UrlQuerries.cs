@@ -19,6 +19,7 @@ namespace RegistrationETRN
         private readonly Form1 _mainForm;
 
         private static readonly string xapikey;
+        private static readonly string IpAddress;
         private static readonly string prod;
         private static readonly string enviroment;
 
@@ -38,6 +39,10 @@ namespace RegistrationETRN
 
                 prod = doc.RootElement
                     .GetProperty("Prod")
+                    .GetString();
+
+                IpAddress = doc.RootElement
+                    .GetProperty("IpAddress")
                     .GetString();
             }
 
@@ -169,10 +174,23 @@ namespace RegistrationETRN
             string url = $"https://operator-epd-reg-server.production.kube.{enviroment}/v1/";
             Dictionary<string, object> Params = new Dictionary<string, object>
             {
-                [""] = ""
+                ["lastName"] = _mainForm.AbonentLastName.Text,
+                ["firstName"] = _mainForm.AbonentFirstName.Text,
+                ["middleName"] = _mainForm.AbonentMiddleName.Text,
+                ["jobTitle"] = _mainForm.AbonentPositionInpit.Text,
+                ["snils"] = _mainForm.AbonentSnils.Text,
+                ["typeOfElectronicSignature"] = _mainForm.AbonentTypeEP.Text,
+                ["expire"] = _mainForm.AbonentSnilsDateEnd.Value.ToString("yyyy-MM-dd")
             };
 
-            return await RequestSender(url, Params, access_token, "сигнатуры Госключ"); ;
+            // ID пользователя
+            if (!string.IsNullOrWhiteSpace(_mainForm.AbonentUserId.Text))
+                Params["userId"] = int.Parse(_mainForm.AbonentUserId.Text);
+
+            // ID существующей связи подписи (если имеется)
+            // Params["signatureRelationId"] = int.Parse(...);
+
+            return await RequestSender(url, Params, access_token, "сигнатуры Госключ");
         }
 
         // Отправка МЧД в БД
@@ -201,7 +219,7 @@ namespace RegistrationETRN
             response.StatusCode = HttpStatusCode.NotFound;
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, $"http://10.240.36.15:8000/files/{fileName}");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"http://{IpAddress}/files/{fileName}");
                 request.Headers.Add("X-API-Key", xapikey);
                 response = await _client.SendAsync(request);
                 return response;

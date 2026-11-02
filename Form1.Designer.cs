@@ -105,6 +105,10 @@
             this.AbonentMCHDDateEnd = new System.Windows.Forms.DateTimePicker();
             this.SignatureRelations = new System.Windows.Forms.TabControl();
             this.myDss = new System.Windows.Forms.TabPage();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.textBoxFileQR = new System.Windows.Forms.TextBox();
+            this.downloadQR = new System.Windows.Forms.Button();
             this.fns = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.AbonentFnsDateEnd = new System.Windows.Forms.DateTimePicker();
@@ -122,10 +126,6 @@
             this.AbonentSnilsDateEnd = new System.Windows.Forms.DateTimePicker();
             this.label26 = new System.Windows.Forms.Label();
             this.goskeyId = new System.Windows.Forms.TextBox();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.downloadQR = new System.Windows.Forms.Button();
-            this.textBoxFileQR = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -138,12 +138,12 @@
             this.groupBox10.SuspendLayout();
             this.SignatureRelations.SuspendLayout();
             this.myDss.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.fns.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.goskey.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox12.SuspendLayout();
-            this.groupBox14.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxCertificate
@@ -887,6 +887,44 @@
             this.myDss.Text = "myDSS 2.0";
             this.myDss.UseVisualStyleBackColor = true;
             // 
+            // groupBox14
+            // 
+            this.groupBox14.Controls.Add(this.label13);
+            this.groupBox14.Controls.Add(this.textBoxFileQR);
+            this.groupBox14.Controls.Add(this.downloadQR);
+            this.groupBox14.Location = new System.Drawing.Point(14, 140);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(440, 94);
+            this.groupBox14.TabIndex = 22;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "QR код";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(16, 42);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(99, 16);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Файл QR кода";
+            // 
+            // textBoxFileQR
+            // 
+            this.textBoxFileQR.Location = new System.Drawing.Point(125, 36);
+            this.textBoxFileQR.Name = "textBoxFileQR";
+            this.textBoxFileQR.Size = new System.Drawing.Size(120, 22);
+            this.textBoxFileQR.TabIndex = 1;
+            // 
+            // downloadQR
+            // 
+            this.downloadQR.Location = new System.Drawing.Point(263, 35);
+            this.downloadQR.Name = "downloadQR";
+            this.downloadQR.Size = new System.Drawing.Size(149, 23);
+            this.downloadQR.TabIndex = 0;
+            this.downloadQR.Text = "Скачать QR код";
+            this.downloadQR.UseVisualStyleBackColor = true;
+            this.downloadQR.Click += new System.EventHandler(this.downloadQR_Click);
+            // 
             // fns
             // 
             this.fns.Controls.Add(this.groupBox11);
@@ -978,6 +1016,8 @@
             this.AbonentTypeEP.FormattingEnabled = true;
             this.AbonentTypeEP.Items.AddRange(new object[] {
             "",
+            "УКЭП_ИП",
+            "УКЭП_ЮЛ",
             "УКЭП",
             "УНЭП"});
             this.AbonentTypeEP.Location = new System.Drawing.Point(72, 58);
@@ -1061,44 +1101,6 @@
             this.goskeyId.Size = new System.Drawing.Size(100, 22);
             this.goskeyId.TabIndex = 0;
             // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.label13);
-            this.groupBox14.Controls.Add(this.textBoxFileQR);
-            this.groupBox14.Controls.Add(this.downloadQR);
-            this.groupBox14.Location = new System.Drawing.Point(14, 140);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(440, 94);
-            this.groupBox14.TabIndex = 22;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "QR код";
-            // 
-            // downloadQR
-            // 
-            this.downloadQR.Location = new System.Drawing.Point(263, 35);
-            this.downloadQR.Name = "downloadQR";
-            this.downloadQR.Size = new System.Drawing.Size(149, 23);
-            this.downloadQR.TabIndex = 0;
-            this.downloadQR.Text = "Скачать QR код";
-            this.downloadQR.UseVisualStyleBackColor = true;
-            this.downloadQR.Click += new System.EventHandler(this.downloadQR_Click);
-            // 
-            // textBoxFileQR
-            // 
-            this.textBoxFileQR.Location = new System.Drawing.Point(125, 36);
-            this.textBoxFileQR.Name = "textBoxFileQR";
-            this.textBoxFileQR.Size = new System.Drawing.Size(120, 22);
-            this.textBoxFileQR.TabIndex = 1;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(16, 42);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(99, 16);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "Файл QR кода";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1137,6 +1139,8 @@
             this.groupBox10.PerformLayout();
             this.SignatureRelations.ResumeLayout(false);
             this.myDss.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
             this.fns.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
@@ -1145,8 +1149,6 @@
             this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1237,19 +1239,19 @@
         private System.Windows.Forms.GroupBox groupBox13;
         public System.Windows.Forms.ComboBox AbonentTypeEP;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TextBox AbonentSnils;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.GroupBox groupBox12;
         public System.Windows.Forms.DateTimePicker AbonentFnsDateEnd;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label29;
-        public System.Windows.Forms.DateTimePicker AbonentSnilsDateEnd;
         private System.Windows.Forms.Label label26;
         public System.Windows.Forms.TextBox goskeyId;
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button downloadQR;
         public System.Windows.Forms.TextBox textBoxFileQR;
+        public System.Windows.Forms.TextBox AbonentSnils;
+        public System.Windows.Forms.DateTimePicker AbonentSnilsDateEnd;
     }
 }
 
